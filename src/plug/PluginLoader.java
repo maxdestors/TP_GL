@@ -10,6 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.junit.internal.TextListener;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+
+import creatures.BouncingCreatureTest;
+import creatures.SmartCreatureTest;
+import creatures.StupidCreatureTest;
+
 /*
  * Non Generic Class Loader (PluginLoader<P> would be a pain, see why?)
  */
@@ -210,16 +218,29 @@ public class PluginLoader {
    */
   @SuppressWarnings("unchecked")
   private Class<IPlugin> loadOnePluginClass(String className) {
+	  
 	  try {
 		  logger.info("Request for loading class " + className + " by " + this);
 		  Class<?> loadedClass = loader.loadClass(className);
+		 		  
+		  
 		  // check that the class is of the right type
 		  if (ptype.isAssignableFrom(loadedClass)) {
-			  return (Class <IPlugin>) loadedClass;
+			  /*
+			  Class<?> loadedClassTest = loader.loadClass(className+"Test");
+			  
+			  JUnitCore runner = new JUnitCore();
+			  // faut l'afficher ailleur
+			  runner.addListener(new TextListener(System.out));
+			  Result result = runner.run(loadedClassTest);
+			  if(result.wasSuccessful()) {*/
+				  return (Class <IPlugin>) loadedClass;/*
+			  }
+			  else {
+				  logger.warning("Class " + className + " Do not pass de tests \n Failures :" + result.getFailures() );
+			  }*/
 		  } else {
-			  logger.warning("Class " + className +
-					  " is not from the expected type" +
-					  ptype.getName());
+			  logger.warning("Class " + className + " is not from the expected type" + ptype.getName());
 		  }
 	  }
 	  catch (ClassNotFoundException e) {

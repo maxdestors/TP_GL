@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import plug.IPlugin;
 import plug.PluginLoader;
+import worlds.IWorld;
 import creatures.IColorStrategy;
 import creatures.ICreature;
 import creatures.IEnvironment;
@@ -29,7 +30,7 @@ public class CreaturePluginFactory {
 	
 	protected PluginLoader pluginLoader;
 	
-	private final String pluginDir = "myplugins/repository";
+	private final String pluginDir = "myplugins/repository"; // /creatures
 	
 	protected Map<String,Constructor<? extends ICreature>> constructorMap; 
 
@@ -58,7 +59,7 @@ public class CreaturePluginFactory {
     	}
     	catch (MalformedURLException ex) {
     	}
-		maxSpeed=inMaxSpeed;
+		maxSpeed = inMaxSpeed;
 		constructorMap = new HashMap<String,Constructor<? extends ICreature>>();
     	load();
     }
@@ -80,7 +81,7 @@ public class CreaturePluginFactory {
 			Constructor<? extends ICreature> c = null;
 			try {				
 				c = (Constructor<? extends ICreature>)
-						p.getDeclaredConstructor(IEnvironment.class, Point2D.class, double.class, double.class, Color.class);
+						p.getDeclaredConstructor(IEnvironment.class, Point2D.class, double.class, double.class, Color.class, IWorld.class);
 				c.setAccessible(true);
 			} catch (SecurityException e) {
 				logger.info("Cannot access (security) constructor for plugin" + p.getName());
@@ -100,8 +101,7 @@ public class CreaturePluginFactory {
 
 	private final Random rand = new Random();
 
-	public <T extends ICreature> Collection<T> createCreatures(IEnvironment env, int count, 
-								IColorStrategy colorStrategy, Constructor<T> constructor) {
+	public <T extends ICreature> Collection<T> createCreatures(IEnvironment env, int count, IColorStrategy colorStrategy, IWorld worldStrategy, Constructor<T> constructor) {
 		Collection<T> creatures = new ArrayList<T>();		
 		Dimension s = env.getSize();		
 		for (int i=0; i<count; i++) {	
@@ -111,11 +111,11 @@ public class CreaturePluginFactory {
 			double y = (rand.nextDouble() * s.getHeight()) - s.getHeight() / 2;
 			// direction
 			double direction = (rand.nextDouble() * 2 * Math.PI);
-			// speed
-			int speed = (int) (rand.nextDouble() * maxSpeed);			
+			// speed why int ????
+			int speed = (int) (rand.nextDouble() * maxSpeed);
 			T creature = null;
 			try {
-				creature = constructor.newInstance(env, new Point2D.Double(x,y), speed, direction, colorStrategy.getColor());
+				creature = constructor.newInstance(env, new Point2D.Double(x,y), speed, direction, colorStrategy.getColor(), worldStrategy);
 			} catch (Exception e) {
 				logger.info("calling constructor " + constructor + " failed with exception " + e.getLocalizedMessage());
 				e.printStackTrace();

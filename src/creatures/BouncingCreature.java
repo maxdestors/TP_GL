@@ -6,8 +6,9 @@ import static java.lang.Math.random;
 import static java.lang.Math.sin;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.geom.Point2D;
+
+import worlds.IWorld;
 
 public class BouncingCreature extends AbstractCreature {
 
@@ -24,14 +25,13 @@ public class BouncingCreature extends AbstractCreature {
 	 */
 	protected int currCycle;
 
-	public BouncingCreature(IEnvironment environment, Point2D position, double speed,
-			double direction, Color color) {
-		super(environment, position);
+	public BouncingCreature(IEnvironment environment, Point2D position, double speed, double direction, Color color, IWorld worldStrategy) {
+		super(environment, position, worldStrategy);
 
 		this.speed = speed;
 		this.direction = direction;
 		this.color = color;
-
+		
 		currCycle = 0;
 	}
 
@@ -69,13 +69,15 @@ public class BouncingCreature extends AbstractCreature {
 	 * The actual move
 	 */
 	public void move() {
-		Dimension s = environment.getSize();
 		
 		double newX = position.getX() + speed * cos(direction);
 		// the reason there is a minus instead of a plus is that in our plane
 		// Y coordinates rises downwards
 		double newY = position.getY() - speed * sin(direction);
-
+		
+		/** APPLY BOUNG interface IWorld
+		Dimension s = environment.getSize();
+		
 		double hw = s.getWidth() / 2;
 		double hh = s.getHeight() / 2;
 
@@ -102,10 +104,11 @@ public class BouncingCreature extends AbstractCreature {
 			// ERROR #2 direction is badly managed 
 			setDirectionBounceY();
 		}
+		*/
 		
 		setPosition(newX, newY);
 	}
-	
+	/*
 	private void setDirectionBounceX() {
 		if (direction >= PI)
 			setDirection(3*PI - direction);
@@ -115,6 +118,6 @@ public class BouncingCreature extends AbstractCreature {
 
 	private void setDirectionBounceY() {
 		setDirection(PI * 2 - direction);
-	}
+	}*/
 	
 }

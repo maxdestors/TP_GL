@@ -12,22 +12,24 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import worlds.IWorld;
 import creatures.visual.CreatureSimulator;
 
 public class SmartCreatureTest {
-
 	CreatureSimulator environment = mock(CreatureSimulator.class);
 	final double w = 100;
 	final double h = 100;
+	IWorld worldStrategy = mock(IWorld.class);
 	
 	@Before
 	public void setup() {
 		when(environment.getSize()).thenReturn(new Dimension((int)w, (int)h));
+		//when(worldStrategy.applyBounds(null)).thenReturn(new Dimension((int)w, (int)h));
 	}
 
 	@Test
 	public void testEmerginBehavior() throws Exception {
-		SmartCreature main = new SmartCreature(environment, new Point2D.Double(0, 0), toRadians(0), 5, Color.RED);
+		SmartCreature main = new SmartCreature(environment, new Point2D.Double(0, 0), toRadians(0), 5, Color.RED, worldStrategy);
 
 		ICreature other = mock(ICreature.class);
 		when(other.getDirection()).thenReturn(toRadians(270));

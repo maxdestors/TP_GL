@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import worlds.IWorld;
+
 public class CreatureBuilder {
 
 	/**
@@ -14,7 +16,7 @@ public class CreatureBuilder {
 	 */
 	public static final float MAX_SPEED = 10f;
 	
-	public List<ICreature> createCreatures(IEnvironment env, int number) {
+	public List<ICreature> createCreatures(IEnvironment env, int number, IWorld worldStrategy) {
 		List<ICreature> list = new ArrayList<ICreature>();
 		Random rand = new Random();
 
@@ -52,8 +54,7 @@ public class CreatureBuilder {
 						b -= 1.0f;
 				}
 			}
-			list.add(new BouncingCreature(env, new Point2D.Double(x,y), direction, speed, new Color(
-					r, g, b)));
+			list.add(new BouncingCreature(env, new Point2D. Double(x,y), direction, speed, new Color(r, g, b), worldStrategy));
 		}
 		
 		return list;

@@ -6,15 +6,16 @@ import static java.lang.Math.sin;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import worlds.IWorld;
+
 
 /**
  * Sample creature
  */
 public class StupidCreature extends AbstractCreature {
 
-	public StupidCreature(IEnvironment environment, Point2D position,
-			double direction, double speed, Color color) {
-		super(environment, position);
+	public StupidCreature(IEnvironment environment, Point2D position, double direction, double speed, Color color, IWorld worldStrategy) {
+		super(environment, position, worldStrategy);
 		
 		this.direction = direction;
 		this.speed = speed;

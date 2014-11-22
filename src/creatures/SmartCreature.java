@@ -6,6 +6,7 @@ import static java.lang.Math.abs;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import worlds.IWorld;
 import commons.Utils.Predicate;
 
 
@@ -55,9 +56,8 @@ public class SmartCreature extends AbstractCreature {
 	/** Minimal speed in pixels per loop. */
 	private final static double MIN_SPEED = 3d;
 
-	public SmartCreature(IEnvironment environment, Point2D position, double direction, double speed,
-			Color color) {
-		super(environment, position);
+	public SmartCreature(IEnvironment environment, Point2D position, double direction, double speed, Color color, IWorld worldStrategy) {
+		super(environment, position, worldStrategy);
 		this.direction = direction;
 		this.speed = speed;
 		this.color = color;
@@ -107,8 +107,7 @@ public class SmartCreature extends AbstractCreature {
 		}
 	}
 
-	public Iterable<ICreature> creaturesAround(
-			SmartCreature smartCreature) {
+	public Iterable<ICreature> creaturesAround(SmartCreature smartCreature) {
 		return filter(environment.getCreatures(), new CreaturesAroundCreature(this));
 	}
 	

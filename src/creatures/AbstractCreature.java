@@ -7,7 +7,6 @@ import static java.lang.Math.atan;
 import static java.lang.Math.toDegrees;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Field;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import worlds.IWorld;
 import commons.Utils.Predicate;
 
 
@@ -54,12 +54,25 @@ public abstract class AbstractCreature implements ICreature {
 	/** Size of the creature in pixels */
 	protected final int size = DEFAULT_SIZE;
 
-	public AbstractCreature(IEnvironment environment, Point2D position) {
+	/*public AbstractCreature(IEnvironment environment, Point2D position) {
 		this.environment = environment;
+
+		setPosition(position);
+	}*/
+	
+	/** Reference to the world */	
+	protected IWorld worldStrategy;
+
+
+	public AbstractCreature(IEnvironment environment, Point2D position, IWorld worldStrategy) {
+		this.environment = environment;
+		this.worldStrategy = worldStrategy;
 
 		setPosition(position);
 	}
 
+	
+	
 	// ----------------------------------------------------------------------------
 	// Getters and Setters
 	// ----------------------------------------------------------------------------
@@ -115,6 +128,12 @@ public abstract class AbstractCreature implements ICreature {
 	}
 
 	public void setPosition(double x, double y) {
+		
+		//*
+		this.position = new Point2D.Double(x, y);
+
+		this.position = worldStrategy.applyBounds(this);
+		/* -----------------------------------------------*
 		Dimension s = environment.getSize();
 		
 		if (x > s.getWidth() / 2) {
@@ -128,8 +147,9 @@ public abstract class AbstractCreature implements ICreature {
 		} else if (y < -s.getHeight() / 2) {
 			y = s.getHeight() / 2;
 		}
-
+		
 		this.position = new Point2D.Double(x, y);
+	// ------------------------------------------------ */
 	}
 
 	// ----------------------------------------------------------------------------
