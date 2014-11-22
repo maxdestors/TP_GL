@@ -80,16 +80,14 @@ public class Launcher extends JFrame {
 		JButton restart = new JButton("(Re-)start simulation");
 		restart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (currentConstructor != null && currentConstructorWorld != null) {//-------------------
-					//System.out.print("currentConstructor : "+currentConstructor+"\n");//-------------------
-					//System.out.print("currentConstructorWorld : "+currentConstructorWorld+"\n"); //-------------------
+				if (currentConstructor != null && currentConstructorWorld != null) {
 					synchronized(simulator) {
 						if (simulator.isRunning()) {
 							simulator.stop();
 						}
 					}
 					simulator.clearCreatures();
-					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld); //-------------------
+					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
 					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 10, new ColorCube(50), worldStrategy, currentConstructor);
 					simulator.addAllCreatures(creatures);
 					simulator.start();
@@ -98,14 +96,29 @@ public class Launcher extends JFrame {
 		});
 		buttons.add(restart);
 		
+		JButton addCreatures = new JButton("Add Creatures");
+		addCreatures.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentConstructor != null && currentConstructorWorld != null) {
+					synchronized(simulator) {
+						if (simulator.isRunning()) {
+							simulator.stop();
+						}
+					}
+					//simulator.clearCreatures();
+					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
+					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 1, new ColorCube(50), worldStrategy, currentConstructor);
+					simulator.addAllCreatures(creatures);
+					simulator.start();
+				}
+			}
+		});
+		buttons.add(addCreatures);
+		
 		add(buttons, BorderLayout.SOUTH);
 		
-		/*-------------------------------*/
-		simulator = new CreatureSimulator(new Dimension(640, 480));
-		
-		//worldStrategy = new WorldClosed(simulator); //-------------------
-		/*-------------------------------*/
 
+		simulator = new CreatureSimulator(new Dimension(640, 480));
 		inspector = new CreatureInspector();
 		inspector.setFocusableWindowState(false);
 		visualizer = new CreatureVisualizer(simulator);
@@ -135,23 +148,20 @@ public class Launcher extends JFrame {
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// the name of the plugin is in the ActionCommand
-				//System.out.print(((JMenuItem) e.getSource()).getActionCommand()+"\n"); //----------------------------------
-				String name = ((JMenuItem) e.getSource()).getActionCommand(); //----------------------------------
-				
-				if (name.indexOf("Creature") != -1) { //----------------------------------
+				String name = ((JMenuItem) e.getSource()).getText();
+				if (name.indexOf("creatures") != -1) {
 					currentConstructor = factory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand());
-				} else if(name.indexOf("World") != -1) { //----------------------------------
-					currentConstructorWorld = worldfactory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand()); //----------------------------------
-				} else { //----------------------------------
-					System.out.print("Plugin non reconnu pour action performed : "+name+"\n"); //----------------------------------
-				} //----------------------------------
+				} else if(name.indexOf("worlds") != -1) {
+					currentConstructorWorld = worldfactory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand());
+				} else {
+					System.out.print("Plugin non reconnu pour action performed : "+name+"\n");
+				}
 			}
 		};
 		menuBuilder = new PluginMenuItemBuilder(factory.getConstructorMap(),listener);
 		menuBuilder.setMenuTitle("Creatures");
 		menuBuilder.buildMenu();
 		mb.add(menuBuilder.getMenu());
-		//System.out.print(" listener :"+ listener +" worldfactory :"+ worldfactory+"\n");
 		menuBuilderWorld = new PluginMenuItemBuilder(listener, worldfactory.getConstructorMap());
 		menuBuilderWorld.setMenuTitle("Monde/Environement");
 		menuBuilderWorld.buildMenu();
