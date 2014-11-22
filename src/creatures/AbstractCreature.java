@@ -62,11 +62,14 @@ public abstract class AbstractCreature implements ICreature {
 	
 	/** Reference to the world */	
 	protected IWorld worldStrategy;
+	
+	protected IMovement movementStrategy;
 
 
-	public AbstractCreature(IEnvironment environment, Point2D position, IWorld worldStrategy) {
+	public AbstractCreature(IEnvironment environment, Point2D position, IWorld worldStrategy, IMovement movementStrat) {
 		this.environment = environment;
 		this.worldStrategy = worldStrategy;
+		this.movementStrategy = movementStrat;
 
 		setPosition(position);
 	}
@@ -162,6 +165,11 @@ public abstract class AbstractCreature implements ICreature {
 
 	protected void rotate(double angle) {
 		this.direction += angle;
+	}
+	
+	// Applique la strategie de mouvement
+	protected void move() {
+		setPosition(movementStrategy.move(this));
 	}
 
 	// ----------------------------------------------------------------------------

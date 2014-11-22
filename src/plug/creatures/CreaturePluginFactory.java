@@ -18,6 +18,8 @@ import worlds.IWorld;
 import creatures.IColorStrategy;
 import creatures.ICreature;
 import creatures.IEnvironment;
+import creatures.IMovement;
+import creatures.StandardCreature;
 
 public class CreaturePluginFactory {
 	
@@ -101,8 +103,8 @@ public class CreaturePluginFactory {
 
 	private final Random rand = new Random();
 
-	public <T extends ICreature> Collection<T> createCreatures(IEnvironment env, int count, IColorStrategy colorStrategy, IWorld worldStrategy, Constructor<T> constructor) {
-		Collection<T> creatures = new ArrayList<T>();		
+	public Collection<ICreature> createCreatures(IEnvironment env, int count, IColorStrategy colorStrategy, IWorld worldStrategy, IMovement moveStrategy) {
+		Collection<ICreature> creatures = new ArrayList<ICreature>();		
 		Dimension s = env.getSize();		
 		for (int i=0; i<count; i++) {	
 			// X coordinate
@@ -113,13 +115,7 @@ public class CreaturePluginFactory {
 			double direction = (rand.nextDouble() * 2 * Math.PI);
 			// speed why int ????
 			int speed = (int) (rand.nextDouble() * maxSpeed);
-			T creature = null;
-			try {
-				creature = constructor.newInstance(env, new Point2D.Double(x,y), speed, direction, colorStrategy.getColor(), worldStrategy);
-			} catch (Exception e) {
-				logger.info("calling constructor " + constructor + " failed with exception " + e.getLocalizedMessage());
-				e.printStackTrace();
-			}
+			StandardCreature creature = new StandardCreature(env, new Point2D.Double(x,y), speed, direction, colorStrategy.getColor(), worldStrategy, moveStrategy);
 			creatures.add(creature);
 		}		
 		return creatures;

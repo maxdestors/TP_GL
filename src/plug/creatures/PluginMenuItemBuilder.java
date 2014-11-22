@@ -1,28 +1,29 @@
 package plug.creatures;
 
-import java.lang.reflect.*;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.awt.event.*;
 
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 import worlds.IWorld;
-import creatures.ICreature;
+import creatures.IMovement;
 
 
 public class PluginMenuItemBuilder {
 
   private JMenu menu;
 
-  private Map<String,Constructor<? extends ICreature>> constructors;
+  private Map<String,Constructor<? extends IMovement>> constructors;
   private Map<String,Constructor<? extends IWorld>> constructorsWorld;
 
   private ActionListener listener;
   
   private static Logger logger = Logger.getLogger("plug.Menu");
 
-  public PluginMenuItemBuilder(Map<String,Constructor<? extends ICreature>> mc, ActionListener listener) {
+  public PluginMenuItemBuilder(Map<String,Constructor<? extends IMovement>> mc, ActionListener listener) {
     menu = new JMenu();
     this.constructors = mc;
     this.constructorsWorld = null;
