@@ -109,14 +109,30 @@ public class Launcher extends JFrame {
 		});
 		buttons.add(restart);
 		
+		JButton addCreatures = new JButton("Add Creatures");
+		addCreatures.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentConstructorWorld != null && currentConstructorMovement != null) {
+					synchronized(simulator) {
+						if (simulator.isRunning()) {
+							simulator.stop();
+						}
+					}
+					//simulator.clearCreatures();
+					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
+					moveStrategy = movefactory.createMovement(simulator, currentConstructorMovement);
+					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 1, new ColorCube(50), worldStrategy, moveStrategy);
+					simulator.addAllCreatures(creatures);
+					simulator.start();
+				}
+			}
+		});
+		buttons.add(addCreatures);
+		
 		add(buttons, BorderLayout.SOUTH);
 		
-		/*-------------------------------*/
-		simulator = new CreatureSimulator(new Dimension(640, 480));
-		
-		//worldStrategy = new WorldClosed(simulator); //-------------------
-		/*-------------------------------*/
 
+		simulator = new CreatureSimulator(new Dimension(640, 480));
 		inspector = new CreatureInspector();
 		inspector.setFocusableWindowState(false);
 		visualizer = new CreatureVisualizer(simulator);
@@ -148,10 +164,7 @@ public class Launcher extends JFrame {
 				// the name of the plugin is in the ActionCommand
 				//System.out.print(((JMenuItem) e.getSource()).getActionCommand()+"\n"); //----------------------------------
 				String name = ((JMenuItem) e.getSource()).getActionCommand(); //----------------------------------
-				
-				/*if (name.indexOf("Creature") != -1) { //----------------------------------
-					currentConstructor = factory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand());
-				} else*/ if(name.indexOf("World") != -1) { //----------------------------------
+				if(name.indexOf("World") != -1) { //----------------------------------
 					currentConstructorWorld = worldfactory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand()); //----------------------------------
 				} else if(name.indexOf("Movement") != -1) { //----------------------------------
 					currentConstructorMovement = movefactory.getConstructorMap().get(((JMenuItem) e.getSource()).getActionCommand()); //----------------------------------
@@ -162,9 +175,7 @@ public class Launcher extends JFrame {
 		};
 		/*menuBuilder = new PluginMenuItemBuilder(factory.getConstructorMap(),listener);
 		menuBuilder.setMenuTitle("Creatures");
-		menuBuilder.buildMenu();
-		mb.add(menuBuilder.getMenu());*/
-		//System.out.print(" listener :"+ listener +" worldfactory :"+ worldfactory+"\n");
+		menuBuilder.buildMenu();*/
 		menuBuilderWorld = new PluginMenuItemBuilder(listener, worldfactory.getConstructorMap());
 		menuBuilderWorld.setMenuTitle("Monde/Environement");
 		menuBuilderWorld.buildMenu();

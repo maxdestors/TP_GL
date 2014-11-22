@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import plug.IPlugin;
 import plug.PluginLoader;
 import worlds.IWorld;
-import creatures.ICreature;
 import creatures.IEnvironment;
 
 public class WorldPluginFactory {
