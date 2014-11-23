@@ -47,6 +47,11 @@ public class PluginLoader {
    * type of the plugins (subtype of IPlugin), use to filter out plugins
    */
   protected Class<? extends IPlugin> ptype;
+  /**
+   * hashMap for tests
+   */
+  private Map<String, Result> mapTest = new HashMap<String, Result>();  
+
   
 
   /**
@@ -226,19 +231,22 @@ public class PluginLoader {
 		  
 		  // check that the class is of the right type
 		  if (ptype.isAssignableFrom(loadedClass)) {
-			  /*
-			  Class<?> loadedClassTest = loader.loadClass(className+"Test");
 			  
-			  JUnitCore runner = new JUnitCore();
-			  // faut l'afficher ailleur
-			  runner.addListener(new TextListener(System.out));
-			  Result result = runner.run(loadedClassTest);
-			  if(result.wasSuccessful()) {*/
-				  return (Class <IPlugin>) loadedClass;/*
+			  Class <?> loadedClassTest = loader.loadClass(className+"Test"); 	//-------------------------------------
+			  
+			  JUnitCore runner = new JUnitCore(); 								//-------------------------------------
+			  runner.addListener(new TextListener(System.out)); 				//-------------------------------------
+			  Result result = runner.run(loadedClassTest); 						//-------------------------------------
+			  
+			  mapTest.put(className, result); 									//-------------------------------------
+			  
+			  if(result.wasSuccessful()) {
+				  return (Class <IPlugin>) loadedClass;
 			  }
 			  else {
-				  logger.warning("Class " + className + " Do not pass de tests \n Failures :" + result.getFailures() );
-			  }*/
+				  logger.warning("Class " + className + " Test passe pas \n Failures : " +result.getFailures());
+			  }
+			  
 		  } else {
 			  logger.warning("Class " + className + " is not from the expected type" + ptype.getName());
 		  }
@@ -260,6 +268,14 @@ public class PluginLoader {
   
   public String getPluginDirectory() {
 	  return pluginDirectory;
+  }
+  
+  /**
+   * Getter
+   * @return mapTest
+   */
+  public Map<String,Result> getMapTest() {
+	  return mapTest;
   }
   
 }

@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.junit.runner.Result;
+
 import plug.IPlugin;
 import plug.PluginLoader;
 import creatures.IEnvironment;
 import creatures.IMovement;
 
-public class MovementPluginFactory {
+public class MovementPluginFactory implements IPluginFactory {
 	
 	/**
 	 * singleton for the abstract factory
@@ -20,13 +22,13 @@ public class MovementPluginFactory {
 		
 	protected PluginLoader pluginLoader;
 	
-	private final String pluginDir = "myplugins/repository";// /Movements
+	private final String pluginDir = "myplugins/repository"; // /Movements
 	
 	protected Map<String,Constructor<? extends IMovement>> constructorMap; 
 
 	/**
-	   * logger facilities to trace plugin loading...
-	   */
+	 * logger facilities to trace plugin loading...
+	 */
 	private static Logger logger = Logger.getLogger("plug.MovementPluginFactory");
 	
 	
@@ -98,6 +100,14 @@ public class MovementPluginFactory {
 			e.printStackTrace();
 		}
 		return Movement;
+	}
+	
+	/**
+	 * Getter HashMap for tests
+	 * @return
+	 */
+	public Map<String, Result> getMapTest(){
+		return pluginLoader.getMapTest();
 	}
 
 }

@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.junit.runner.Result;
+
 import plug.IPlugin;
 import plug.PluginLoader;
 import worlds.IWorld;
 import creatures.IEnvironment;
 
-public class WorldPluginFactory {
+public class WorldPluginFactory implements IPluginFactory {
 	
 	/**
 	 * singleton for the abstract factory
@@ -25,8 +27,8 @@ public class WorldPluginFactory {
 	protected Map<String,Constructor<? extends IWorld>> constructorMap; 
 
 	/**
-	   * logger facilities to trace plugin loading...
-	   */
+	 * logger facilities to trace plugin loading...
+	 */
 	private static Logger logger = Logger.getLogger("plug.WorldPluginFactory");
 	
 	
@@ -98,6 +100,14 @@ public class WorldPluginFactory {
 			e.printStackTrace();
 		}
 		return world;
+	}
+	
+	/**
+	 * Getter HashMap for tests
+	 * @return
+	 */
+	public Map<String, Result> getMapTest(){
+		return pluginLoader.getMapTest();
 	}
 
 }
