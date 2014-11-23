@@ -14,12 +14,12 @@ import creatures.IEnvironment;
 import creatures.IMovement;
 import creatures.StandardCreature;
 
-public class CreaturePluginFactory {
+public class CreatureFactory {
 	
 	/**
 	 * singleton for the abstract factory
 	 */
-	protected static CreaturePluginFactory _singleton;
+	protected static CreatureFactory _singleton;
 	
 	private double maxSpeed;
 	
@@ -33,15 +33,15 @@ public class CreaturePluginFactory {
         if (_singleton != null) {
             throw new RuntimeException("CreatureFactory already created by " + _singleton.getClass().getName());
         } else {
-             _singleton = new CreaturePluginFactory(inMaxSpeed);
+             _singleton = new CreatureFactory(inMaxSpeed);
         }
      }
 
-    public static CreaturePluginFactory getInstance() {
+    public static CreatureFactory getInstance() {
     	return _singleton;
     }
 
-    private CreaturePluginFactory(double inMaxSpeed) {
+    private CreatureFactory(double inMaxSpeed) {
 		maxSpeed = inMaxSpeed;
     }
 	

@@ -255,7 +255,7 @@ public class Launcher extends JFrame {
 		return panel;
 	}
 	
-	/** A FACTORISER
+	/**
 	 * Parcours la Map pour afficher les rapports d'erreur
 	 * @param map
 	 * @param panel
