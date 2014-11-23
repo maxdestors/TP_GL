@@ -132,10 +132,7 @@ public abstract class AbstractCreature implements ICreature {
 	}
 
 	public void setPosition(double x, double y) {
-		
-		//*
 		this.position = new Point2D.Double(x, y);
-
 		this.position = worldStrategy.applyBounds(this);
 
 	}
