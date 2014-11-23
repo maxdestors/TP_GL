@@ -9,9 +9,8 @@ import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import simulator.Simulator;
-
+import worlds.IWorld;
 import commons.Utils.Predicate;
-
 import creatures.ICreature;
 import creatures.IEnvironment;
 
@@ -84,6 +83,13 @@ public class CreatureSimulator extends Simulator<ICreature> implements IEnvironm
 	
 	public void clearCreatures() {
 		actionables.clear();
+	}
+
+	public void updateWorldStrategy(IWorld newWolrdStrat) {
+		for (ICreature a : actionables) {
+			a.setWorldStrategy(newWolrdStrat);
+		}
+		
 	}
 
 }

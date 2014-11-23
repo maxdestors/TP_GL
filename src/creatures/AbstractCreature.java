@@ -136,24 +136,14 @@ public abstract class AbstractCreature implements ICreature {
 		this.position = new Point2D.Double(x, y);
 
 		this.position = worldStrategy.applyBounds(this);
-		/* -----------------------------------------------*
-		Dimension s = environment.getSize();
-		
-		if (x > s.getWidth() / 2) {
-			x = -s.getWidth() / 2;
-		} else if (x < -s.getWidth() / 2) {
-			x = s.getWidth() / 2;
-		}
 
-		if (y > s.getHeight() / 2) {
-			y = -s.getHeight() / 2;
-		} else if (y < -s.getHeight() / 2) {
-			y = s.getHeight() / 2;
-		}
-		
-		this.position = new Point2D.Double(x, y);
-	// ------------------------------------------------ */
 	}
+	
+	public void setWorldStrategy(IWorld newWorldStrategy) {
+		this.worldStrategy = newWorldStrategy;
+	}
+
+	
 
 	// ----------------------------------------------------------------------------
 	// Positioning methods
