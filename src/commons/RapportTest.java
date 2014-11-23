@@ -20,11 +20,18 @@ import org.junit.runner.notification.Failure;
 import plug.creatures.MovementPluginFactory;
 import plug.creatures.WorldPluginFactory;
 
+
+/**
+ * 
+ * Classe de génération de rapport de test
+ *
+ */
+
 public class RapportTest {
 	
 	private boolean aTestFail;    // est ce qu'un test a échoué
 	private String infoTestFail;  // récupére les infos relatives au test dans une string
-	private final WorldPluginFactory worldfactory;   // les factory concernées
+	private final WorldPluginFactory worldfactory;     // les factory concernées world et movement
 	private final MovementPluginFactory movefactory;
 	
 	
@@ -35,11 +42,11 @@ public class RapportTest {
 	 * @param worldfactory
 	 * @param movefactory
 	 */
-	public RapportTest(boolean aTestFail, String infoTestFail, WorldPluginFactory worldfactory, MovementPluginFactory movefactory) {
+	public RapportTest(boolean aTestFail, String infoTestFail, WorldPluginFactory wdfac, MovementPluginFactory mvfac) {
 		this.aTestFail = false;
 		this.infoTestFail = null;
-		this.worldfactory = worldfactory;
-		this.movefactory = movefactory;
+		this.worldfactory = wdfac;
+		this.movefactory = mvfac;
 	}
 	
 	/**
