@@ -1,19 +1,12 @@
 package plug.creatures;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.lang.reflect.Constructor;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import plug.IPlugin;
-import plug.PluginLoader;
 import worlds.IWorld;
 import creatures.IColorStrategy;
 import creatures.ICreature;
@@ -30,12 +23,6 @@ public class CreaturePluginFactory {
 	
 	private double maxSpeed;
 	
-	protected PluginLoader pluginLoader;
-	
-	private final String pluginDir = "myplugins/repository"; // /creatures
-	
-	protected Map<String,Constructor<? extends ICreature>> constructorMap; 
-
 	/**
 	   * logger facilities to trace plugin loading...
 	   */
@@ -44,8 +31,7 @@ public class CreaturePluginFactory {
 	
     public static void init(double inMaxSpeed) {
         if (_singleton != null) {
-            throw new RuntimeException("CreatureFactory already created by " 
-				  + _singleton.getClass().getName());
+            throw new RuntimeException("CreatureFactory already created by " + _singleton.getClass().getName());
         } else {
              _singleton = new CreaturePluginFactory(inMaxSpeed);
         }
@@ -56,51 +42,9 @@ public class CreaturePluginFactory {
     }
 
     private CreaturePluginFactory(double inMaxSpeed) {
-    	try {
-    		pluginLoader = new PluginLoader(pluginDir,ICreature.class);
-    	}
-    	catch (MalformedURLException ex) {
-    	}
 		maxSpeed = inMaxSpeed;
-		constructorMap = new HashMap<String,Constructor<? extends ICreature>>();
-    	load();
     }
 	
-    public void load() {
-    	pluginLoader.loadPlugins();
-    	buildConstructorMap();
-    }
-    
-    public void reload() {
-    	pluginLoader.reloadPlugins();
-    	constructorMap.clear();
-    	buildConstructorMap();
-    }
-    
-	@SuppressWarnings("unchecked")
-	private void buildConstructorMap() {
-		for (Class<? extends IPlugin> p : pluginLoader.getPluginClasses()) {
-			Constructor<? extends ICreature> c = null;
-			try {				
-				c = (Constructor<? extends ICreature>)
-						p.getDeclaredConstructor(IEnvironment.class, Point2D.class, double.class, double.class, Color.class, IWorld.class);
-				c.setAccessible(true);
-			} catch (SecurityException e) {
-				logger.info("Cannot access (security) constructor for plugin" + p.getName());
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				logger.info("No constructor in plugin " + p.getName() + " with the correct signature");
-				e.printStackTrace();
-			}
-			if (c != null)
-				constructorMap.put(p.getName(),c);
-		}
-	}
-	
-	public Map<String, Constructor<? extends ICreature>> getConstructorMap() {
-		return constructorMap;
-	}
-
 	private final Random rand = new Random();
 
 	public Collection<ICreature> createCreatures(IEnvironment env, int count, IColorStrategy colorStrategy, IWorld worldStrategy, IMovement moveStrategy) {
