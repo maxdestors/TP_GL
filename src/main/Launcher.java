@@ -24,9 +24,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
+
+import commons.RapportTest;
 
 import plug.creatures.CreatureFactory;
 import plug.creatures.MovementPluginFactory;
@@ -201,94 +204,12 @@ public class Launcher extends JFrame {
 		item1.addActionListener(new ActionListener() {       // on écoute dessus...
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				windowTest();								 // la fenetre se lance
+				RapportTest rapport = new RapportTest(aTestFail, infoTestFail, worldfactory, movefactory);		// la fenetre se lance
+				rapport.windowTest();
 			}
 		});
 		
 		setJMenuBar(mb);
-	}
-	
-	/**
-	 *  Afficher la fenêtre de rapport de test
-	 *  Appel la fonction getInfoTest
-	 */
-	private void windowTest() {
-		JFrame jf = new JFrame();
-		jf.setTitle("Rapports test");
-		jf.setSize(400, 1000);
-		jf.setLocationRelativeTo(null);
-		jf.setResizable(false);
-		jf.setContentPane(getInfoTest());
-		jf.setVisible(true);
-	}
-	
-	/**
-	 * Fonction qui permet d'obtenir et lister les informations
-	 * relatives aux classes de tests
-	 * @return JPanel
-	 */
-	private JPanel getInfoTest() 
-	{
-		// panel 
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		// label de titre de fenêtre
-		JLabel title = new JLabel("<html><h2>Les rapports de test</h2><br></html>");
-		panel.add(title);
-		// bouton d'info supplémentaire
-		JButton infoBut;
-		
-		infoFromTest(worldfactory.getMapTest(), panel);
-		infoFromTest(movefactory.getMapTest(), panel);
-				
-		// info bouton
-		infoBut = new JButton("More info on failure");
-		infoBut.addActionListener((new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(!aTestFail) {
-					JOptionPane.showMessageDialog(null, "Pas d'échecs, les plugins sont correctement chargés.", "Failure", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, infoTestFail, "Failure", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}	
-		}));
-		
-		panel.add(infoBut);
-		
-		return panel;
-	}
-	
-	/**
-	 * Parcours la Map pour afficher les rapports d'erreur
-	 * @param map
-	 * @param panel
-	 */
-	private void infoFromTest(Map<String, Result> map, JPanel panel) {
-		Set<?> entrees = map.entrySet();
-		Iterator<?> iter = entrees.iterator();
-		// itération sur notre map pour l'affichage des informations
-		while(iter.hasNext()) 
-		{
-			Map.Entry entree = (Map.Entry)iter.next();
-			Result t = (Result) entree.getValue();		// récupération des results
-			String s = (String) entree.getKey();		// récupération du nom de classe
-		
-			List<Failure> failures = t.getFailures();
-			int nbFailures = failures.size();
-			int nbTest = t.getRunCount();
-
-			if(nbFailures > 0) 
-			{
-				panel.add(new JLabel("<html><font color='red'><u>Rapport de test de la classe</u> : <b>" + s + "</b><br><br>Nombre test(s) lancés: " + nbTest + "<br>Nombre d'échec(s): " + nbFailures + "<br>--> Le plugin n'a pas été chargé.<br><br><br></font></html>"));
-				aTestFail = true;
-				infoTestFail += t.getFailures();
-			} 
-			else {
-				panel.add(new JLabel("<html><u>Rapport de test de la classe</u> : <b><font color='green'>" + s + "</font></b><br><br>Nombre test(s) lancés: " + nbTest + "<br>Nombre d'échec(s): " + nbFailures + "<br>--> Le plugin a bien été chargé.<br><br><br></html>"));
-			}
-		}
 	}
 	
 	
