@@ -56,7 +56,7 @@ public class RapportTest {
 	public void windowTest() {
 		JFrame jf = new JFrame();
 		jf.setTitle("Rapports test");
-		jf.setSize(450, 840);
+		jf.setSize(430, 840);
 		jf.setLocationRelativeTo(null);
 		jf.setResizable(false);
 		jf.setContentPane(getInfoTest());

@@ -58,14 +58,14 @@ public class Launcher extends JFrame {
 	protected IWorld worldStrategy;
 	protected IMovement moveStrategy;
 	
-	private boolean aTestFail = false;   //---------------------------- pour différencier l'affichage
-	private String infoTestFail = null;  //---------------------------- string complète des tests échoués
+	private boolean aTestFail = false;   // pour différencier l'affichage
+	private String infoTestFail = null;  // string complète des tests échoués
 	  
 	public Launcher() {
 
 		final IColorStrategy colorStrat = new ColorCube(50);
 
-		JOptionPane.showMessageDialog(null, "Choisir un mouvement, et un comportement svp.", "INFO", JOptionPane.INFORMATION_MESSAGE); //----------------------------
+		JOptionPane.showMessageDialog(null, "Choisir un monde et un déplacement svp.", "INFO", JOptionPane.INFORMATION_MESSAGE); 
 		setTitle("SIMULATEUR"); 	
 		
 		factory = CreatureFactory.getInstance();		//TODO
@@ -200,7 +200,6 @@ public class Launcher extends JFrame {
 		
 		setJMenuBar(mb);
 	}
-	
 	
 	public static void main(String args[]) {
 	    Logger.getLogger("plug").setLevel(Level.INFO);
