@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import creatures.movement.IMovement;
 import worlds.IWorld;
 
 public class CreatureBuilder {

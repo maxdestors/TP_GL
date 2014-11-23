@@ -3,6 +3,7 @@ package creatures;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import creatures.movement.IMovement;
 import worlds.IWorld;
 
 

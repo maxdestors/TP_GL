@@ -1,9 +1,12 @@
-package creatures;
+package creatures.movement;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 import java.awt.geom.Point2D;
+
+import creatures.AbstractCreature;
+import creatures.IEnvironment;
 
 public class MovementRandom implements IMovement {
 	

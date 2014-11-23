@@ -34,8 +34,9 @@ import plug.creatures.PluginMenuItemBuilderMovement;
 import plug.creatures.PluginMenuItemBuilderWorld;
 import plug.creatures.WorldPluginFactory;
 import worlds.IWorld;
+import creatures.IColorStrategy;
 import creatures.ICreature;
-import creatures.IMovement;
+import creatures.movement.IMovement;
 import creatures.visual.ColorCube;
 import creatures.visual.CreatureInspector;
 import creatures.visual.CreatureSimulator;
@@ -69,6 +70,8 @@ public class Launcher extends JFrame {
 	private String infoTestFail = null;  //---------------------------- string complète des tests échoués
 	  
 	public Launcher() {
+		final IColorStrategy colorStrat = new ColorCube(50);
+		
 		factory = CreatureFactory.getInstance();		//TODO
 		worldfactory = WorldPluginFactory.getInstance();
 		movefactory = MovementPluginFactory.getInstance();
@@ -108,9 +111,7 @@ public class Launcher extends JFrame {
 					}
 					simulator.clearCreatures();
 					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
-					moveStrategy = movefactory.createMovement(simulator, currentConstructorMovement);
-					// TODO a refaire
-					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 10, new ColorCube(50), worldStrategy, moveStrategy);
+					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 10, colorStrat, worldStrategy, movefactory, currentConstructorMovement);
 					simulator.addAllCreatures(creatures);
 					simulator.start();
 				}
@@ -129,8 +130,7 @@ public class Launcher extends JFrame {
 					}
 					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
 					simulator.updateWorldStrategy(worldStrategy);
-					moveStrategy = movefactory.createMovement(simulator, currentConstructorMovement);
-					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 1, new ColorCube(50), worldStrategy, moveStrategy);
+					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 1, colorStrat, worldStrategy, movefactory, currentConstructorMovement);
 					simulator.addAllCreatures(creatures);
 					simulator.start();
 				}

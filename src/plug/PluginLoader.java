@@ -14,10 +14,6 @@ import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 
-import creatures.BouncingCreatureTest;
-import creatures.SmartCreatureTest;
-import creatures.StupidCreatureTest;
-
 /*
  * Non Generic Class Loader (PluginLoader<P> would be a pain, see why?)
  */

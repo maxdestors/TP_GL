@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.Iterator;
+
 import simulator.ISimulationListener;
 import visual.Visualizer;
 import creatures.ICreature;

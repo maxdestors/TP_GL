@@ -2,8 +2,8 @@ package worlds;
 
 import java.awt.geom.Point2D;
 
-import creatures.AbstractCreature;
 import plug.IPlugin;
+import creatures.AbstractCreature;
 
 public interface IWorld extends IPlugin {
 	

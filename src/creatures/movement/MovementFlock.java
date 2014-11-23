@@ -1,4 +1,4 @@
-package creatures;
+package creatures.movement;
 
 import static commons.Utils.filter;
 import static java.lang.Math.abs;
@@ -6,6 +6,9 @@ import static java.lang.Math.abs;
 import java.awt.geom.Point2D;
 
 import commons.Utils.Predicate;
+import creatures.AbstractCreature;
+import creatures.ICreature;
+import creatures.IEnvironment;
 
 public class MovementFlock implements IMovement {
 	

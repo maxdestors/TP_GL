@@ -1,13 +1,14 @@
-package creatures;
+package creatures.movement;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class MovementRandomTest {
+public class MovementBouncingTest {
 
 	@Test
 	public void test() {
+		//fail("Not yet implemented");
 		assertTrue(true);
 	}
 

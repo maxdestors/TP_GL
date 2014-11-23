@@ -10,7 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import simulator.Simulator;
 import worlds.IWorld;
+
 import commons.Utils.Predicate;
+
 import creatures.ICreature;
 import creatures.IEnvironment;
 

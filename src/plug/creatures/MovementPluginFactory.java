@@ -11,7 +11,7 @@ import org.junit.runner.Result;
 import plug.IPlugin;
 import plug.PluginLoader;
 import creatures.IEnvironment;
-import creatures.IMovement;
+import creatures.movement.IMovement;
 
 public class MovementPluginFactory implements IPluginFactory {
 	

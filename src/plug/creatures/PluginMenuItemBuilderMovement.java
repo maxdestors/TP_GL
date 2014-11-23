@@ -8,8 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import worlds.IWorld;
-import creatures.IMovement;
+import creatures.movement.IMovement;
 
 
 public class PluginMenuItemBuilderMovement {

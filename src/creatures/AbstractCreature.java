@@ -17,6 +17,7 @@ import java.util.List;
 
 import worlds.IWorld;
 import commons.Utils.Predicate;
+import creatures.movement.IMovement;
 
 
 public abstract class AbstractCreature implements ICreature {
