@@ -22,11 +22,19 @@ import plug.creatures.WorldPluginFactory;
 
 public class RapportTest {
 	
-	private boolean aTestFail;  
-	private String infoTestFail;
-	private final WorldPluginFactory worldfactory;
+	private boolean aTestFail;    // est ce qu'un test a échoué
+	private String infoTestFail;  // récupére les infos relatives au test dans une string
+	private final WorldPluginFactory worldfactory;   // les factory concernées
 	private final MovementPluginFactory movefactory;
 	
+	
+	/**
+	 * Constructeur
+	 * @param aTestFail
+	 * @param infoTestFail
+	 * @param worldfactory
+	 * @param movefactory
+	 */
 	public RapportTest(boolean aTestFail, String infoTestFail, WorldPluginFactory worldfactory, MovementPluginFactory movefactory) {
 		this.aTestFail = false;
 		this.infoTestFail = null;
