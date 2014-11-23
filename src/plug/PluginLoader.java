@@ -224,17 +224,16 @@ public class PluginLoader {
 		  logger.info("Request for loading class " + className + " by " + this);
 		  Class<?> loadedClass = loader.loadClass(className);
 		 		  
-		  
 		  // check that the class is of the right type
 		  if (ptype.isAssignableFrom(loadedClass)) {
 			  
-			  Class <?> loadedClassTest = loader.loadClass(className+"Test"); 	//-------------------------------------
+			  Class <?> loadedClassTest = loader.loadClass(className+"Test"); 	
 			  
-			  JUnitCore runner = new JUnitCore(); 								//-------------------------------------
-			  runner.addListener(new TextListener(System.out)); 				//-------------------------------------
-			  Result result = runner.run(loadedClassTest); 						//-------------------------------------
+			  JUnitCore runner = new JUnitCore(); 								
+			  runner.addListener(new TextListener(System.out)); 				
+			  Result result = runner.run(loadedClassTest); 						
 			  
-			  mapTest.put(className, result); 									//-------------------------------------
+			  mapTest.put(className, result); 									
 			  
 			  if(result.wasSuccessful()) {
 				  return (Class <IPlugin>) loadedClass;
