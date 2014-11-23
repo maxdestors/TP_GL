@@ -69,6 +69,9 @@ public class Launcher extends JFrame {
 	private String infoTestFail = null;  //---------------------------- string complète des tests échoués
 	  
 	public Launcher() {
+		JOptionPane.showMessageDialog(null, "Choisir un mouvement, et un comportement svp.", "INFO", JOptionPane.INFORMATION_MESSAGE); //----------------------------
+		setTitle("SIMULATEUR"); 	
+		
 		factory = CreatureFactory.getInstance();		//TODO
 		worldfactory = WorldPluginFactory.getInstance();
 		movefactory = MovementPluginFactory.getInstance();
