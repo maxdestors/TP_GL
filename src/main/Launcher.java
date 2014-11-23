@@ -17,9 +17,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import plug.creatures.CreaturePluginFactory;
+import plug.creatures.CreatureFactory;
 import plug.creatures.MovementPluginFactory;
-import plug.creatures.PluginMenuItemBuilder;
+import plug.creatures.PluginMenuItemBuilderMovement;
+import plug.creatures.PluginMenuItemBuilderWorld;
 import plug.creatures.WorldPluginFactory;
 import worlds.IWorld;
 import creatures.ICreature;
@@ -36,7 +37,7 @@ import creatures.visual.CreatureVisualizer;
 @SuppressWarnings("serial")
 public class Launcher extends JFrame {
 
-	private final CreaturePluginFactory factory;	//TODO
+	private final CreatureFactory factory;	//TODO
 	private final WorldPluginFactory worldfactory;
 	private final MovementPluginFactory movefactory;
 	
@@ -44,8 +45,8 @@ public class Launcher extends JFrame {
 	private final CreatureVisualizer visualizer;
 	private final CreatureSimulator simulator;
 	
-	private PluginMenuItemBuilder menuBuilderWorld;
-	private PluginMenuItemBuilder menuBuilderMovement;
+	private PluginMenuItemBuilderWorld menuBuilderWorld;
+	private PluginMenuItemBuilderMovement menuBuilderMovement;
 	private JMenuBar mb = new JMenuBar();	
 	private Constructor<? extends IWorld> currentConstructorWorld = null;
 	private Constructor<? extends IMovement> currentConstructorMovement = null;
@@ -54,7 +55,7 @@ public class Launcher extends JFrame {
 	protected IMovement moveStrategy;
 	  
 	public Launcher() {
-		factory = CreaturePluginFactory.getInstance();		//TODO
+		factory = CreatureFactory.getInstance();		//TODO
 		worldfactory = WorldPluginFactory.getInstance();
 		movefactory = MovementPluginFactory.getInstance();
 
@@ -166,11 +167,11 @@ public class Launcher extends JFrame {
 				}
 			}
 		};
-		menuBuilderWorld = new PluginMenuItemBuilder(listener, worldfactory.getConstructorMap());
+		menuBuilderWorld = new PluginMenuItemBuilderWorld(worldfactory.getConstructorMap(), listener);
 		menuBuilderWorld.setMenuTitle("Monde/Environement");
 		menuBuilderWorld.buildMenu();
 		mb.add(menuBuilderWorld.getMenu());
-		menuBuilderMovement = new PluginMenuItemBuilder(movefactory.getConstructorMap(), listener);
+		menuBuilderMovement = new PluginMenuItemBuilderMovement(movefactory.getConstructorMap(), listener);
 		menuBuilderMovement.setMenuTitle("Deplacement");
 		menuBuilderMovement.buildMenu();
 		mb.add(menuBuilderMovement.getMenu());
@@ -181,7 +182,7 @@ public class Launcher extends JFrame {
 	public static void main(String args[]) {
 	    Logger.getLogger("plug").setLevel(Level.INFO);
 		double myMaxSpeed = 5;
-		CreaturePluginFactory.init(myMaxSpeed);
+		CreatureFactory.init(myMaxSpeed);
 		WorldPluginFactory.init();
 		MovementPluginFactory.init();
 		Launcher launcher = new Launcher();
