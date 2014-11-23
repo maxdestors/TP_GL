@@ -87,7 +87,7 @@ public class RapportTest {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(!aTestFail) {
-					JOptionPane.showMessageDialog(null, "Pas d'échecs, les plugins sont correctement chargés.", "Failure", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Pas d'échec, les plugins sont correctement chargés.", "Failure", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					JOptionPane.showMessageDialog(null, infoTestFail, "Failure", JOptionPane.INFORMATION_MESSAGE);
