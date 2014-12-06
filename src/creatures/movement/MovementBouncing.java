@@ -41,13 +41,11 @@ public class MovementBouncing implements IMovement {
 		}
 	}
 
-	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return  getClass().getName();
 	}
 
-	@Override
 	public Point2D move(AbstractCreature creature) {
 		// TODO Auto-generated method stub
 		applyNoise(creature);
