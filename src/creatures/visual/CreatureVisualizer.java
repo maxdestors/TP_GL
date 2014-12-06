@@ -33,7 +33,6 @@ public class CreatureVisualizer extends Visualizer {
 		});
 
 		simulator.addSimulationListener(new ISimulationListener() {
-			@Override
 			public void simulationCycleComputed() {
 				repaint();
 			}

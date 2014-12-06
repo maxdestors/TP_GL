@@ -81,7 +81,6 @@ public abstract class AbstractCreature implements ICreature {
 	// Getters and Setters
 	// ----------------------------------------------------------------------------
 
-	@Override
 	public IEnvironment getEnvironment() {
 		return environment;
 	}
@@ -94,7 +93,6 @@ public abstract class AbstractCreature implements ICreature {
 		return visionDistance;
 	}
 
-	@Override
 	public double getSpeed() {
 		return speed;
 	}
@@ -103,7 +101,6 @@ public abstract class AbstractCreature implements ICreature {
 		this.speed = speed;
 	}
 
-	@Override
 	public double getDirection() {
 		return direction;
 	}
@@ -112,17 +109,14 @@ public abstract class AbstractCreature implements ICreature {
 		this.direction = direction % (PI * 2);
 	}
 
-	@Override
 	public Color getColor() {
 		return color;
 	}
 
-	@Override
 	public int getSize() {
 		return size;
 	}
 
-	@Override
 	public Point2D getPosition() {
 		return new Point2D.Double(position.getX(), position.getY());
 	}
@@ -171,7 +165,6 @@ public abstract class AbstractCreature implements ICreature {
 	 * @return direction in radians between given point and current position in
 	 *         respect to a given {@code axis}.
 	 */
-	@Override
 	public double directionFormAPoint(Point2D p, double axis) {
 		double b = 0d;
 
@@ -212,7 +205,6 @@ public abstract class AbstractCreature implements ICreature {
 	 * 
 	 * @return distance between the current position and a given point.
 	 */
-	@Override
 	public double distanceFromAPoint(Point2D p) {
 		return getPosition().distance(p);
 	}
@@ -221,7 +213,6 @@ public abstract class AbstractCreature implements ICreature {
 	// Painting
 	// ----------------------------------------------------------------------------
 
-	@Override
 	public void paint(Graphics2D g2) {
 		// center the point
 		g2.translate(position.getX(), position.getY());
@@ -263,7 +254,6 @@ public abstract class AbstractCreature implements ICreature {
 		Iterable<Field> fields = filter(
 				Arrays.asList(clazz.getDeclaredFields()),
 				new Predicate<Field>() {
-					@Override
 					public boolean apply(Field input) {
 						return !Modifier.isStatic(input.getModifiers());
 					}

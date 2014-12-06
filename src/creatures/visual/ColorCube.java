@@ -18,7 +18,6 @@ public class ColorCube implements IColorStrategy {
 
 
 
-	@Override
 	public Color getColor() {
 		r += colorPhase;
 		if (r > 1.0) {
