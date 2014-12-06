@@ -84,6 +84,7 @@ public class RapportTest {
 		// bouton d'information
 		infoBut = new JButton("More info on failure");
 		infoBut.addActionListener((new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(!aTestFail) {
 					JOptionPane.showMessageDialog(null, "Pas d'échec, les plugins sont correctement chargés.", "Failure", JOptionPane.INFORMATION_MESSAGE);

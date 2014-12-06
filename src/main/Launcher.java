@@ -191,6 +191,7 @@ public class Launcher extends JFrame {
 		JMenuItem item1 = new JMenuItem("Rapport de test");  // sous menu de menuTest
 		menuTest.add(item1);                                 // on l'ajoute
 		item1.addActionListener(new ActionListener() {       // on écoute dessus...
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				RapportTest rapport = new RapportTest(aTestFail, infoTestFail, worldfactory, movefactory);		// la fenetre se lance
 				rapport.windowTest();

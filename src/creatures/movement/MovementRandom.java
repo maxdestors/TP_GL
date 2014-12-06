@@ -12,6 +12,7 @@ public class MovementRandom implements IMovement {
 	
 	public MovementRandom(IEnvironment env) {}
 
+	@Override
 	public Point2D move(AbstractCreature creature) {
 		// TODO Auto-generated method stub
 		double newX = creature.getPosition().getX() + creature.getSpeed() * cos(creature.getDirection());
@@ -19,6 +20,7 @@ public class MovementRandom implements IMovement {
 		return new Point2D.Double(newX, newY);
 	}
 
+	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return  getClass().getName();

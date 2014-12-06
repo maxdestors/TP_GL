@@ -37,6 +37,7 @@ public class WorldToric implements IWorld {
 		return new Point2D.Double(x,y);
 	}
 
+	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return  getClass().getName();

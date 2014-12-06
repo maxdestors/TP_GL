@@ -47,6 +47,7 @@ public class WorldCircular implements IWorld {
 		return PI * 2 - direction;
 	}
 
+	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return  getClass().getName();

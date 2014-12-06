@@ -31,6 +31,7 @@ public class CreatureSimulator extends Simulator<ICreature> implements IEnvironm
 			this.margin = margin;
 		}
 
+		@Override
 		public boolean apply(ICreature input) {
 			return input.distanceFromAPoint(point) <= margin;
 		}
@@ -57,6 +58,7 @@ public class CreatureSimulator extends Simulator<ICreature> implements IEnvironm
 	/**
 	 * @return a copy of the current creature list.
 	 */
+	@Override
 	public Iterable<ICreature> getCreatures() {
 		return new ArrayList<ICreature>(actionables);
 	}

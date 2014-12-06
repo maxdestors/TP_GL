@@ -25,6 +25,7 @@ public class MovementFlock implements IMovement {
 			this.observer = observer;
 		}
 
+		@Override
 		public boolean apply(ICreature input) {
 			if (input == observer) {
 				return false;
@@ -45,6 +46,7 @@ public class MovementFlock implements IMovement {
 	/** Minimal speed in pixels per loop. */
 	private final static double MIN_SPEED = 3d;
 
+	@Override
 	public Point2D move(AbstractCreature creature) {
 		// speed - will be used to compute the average speed of the nearby
 		// creatures including this instance
@@ -90,6 +92,7 @@ public class MovementFlock implements IMovement {
 		return creature.getPosition();
 	}
 
+	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return  getClass().getName();
