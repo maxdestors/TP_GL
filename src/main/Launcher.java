@@ -18,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import commons.RapportTest;
 
 import plug.creatures.CreatureFactory;
@@ -137,7 +138,7 @@ public class Launcher extends JFrame {
 		add(buttons, BorderLayout.SOUTH);
 		
 
-		simulator = new CreatureSimulator(new Dimension(640, 480));
+		simulator = new CreatureSimulator(new Dimension(640, 480), Const.SIMULATOR_SPEED);
 		inspector = new CreatureInspector();
 		inspector.setFocusableWindowState(false);
 		visualizer = new CreatureVisualizer(simulator);

@@ -38,8 +38,8 @@ public class CreatureSimulator extends Simulator<ICreature> implements IEnvironm
 
 	private Dimension size;
 
-	public CreatureSimulator(Dimension initialSize) {
-		super(new CopyOnWriteArrayList<ICreature>(), 10);
+	public CreatureSimulator(Dimension initialSize, int initSpeed) {
+		super(new CopyOnWriteArrayList<ICreature>(), initSpeed);
 		this.size = initialSize;
 	}
 	
