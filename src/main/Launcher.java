@@ -108,7 +108,7 @@ public class Launcher extends JFrame {
 					}
 					simulator.clearCreatures();
 					worldStrategy = worldfactory.createWorld(simulator, currentConstructorWorld);
-					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, 10, colorStrat, worldStrategy, movefactory, currentConstructorMovement);
+					Collection<? extends ICreature> creatures = factory.createCreatures(simulator, Const.CREATURE_COUNT, colorStrat, worldStrategy, movefactory, currentConstructorMovement);
 					simulator.addAllCreatures(creatures);
 					simulator.start();
 				}
